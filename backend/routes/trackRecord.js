@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const trackController = require('../controllers/trackController.js');
 
-router.get('/', (req, res) => {
-    res.json({message: 'ruta de tracks'})
-});
+router.get('/', trackController.getRecords);
 
 module.exports = router;
