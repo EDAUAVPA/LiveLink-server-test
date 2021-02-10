@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Api Rest for Test",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "LiveLink",
+    "Api",
+    "REST",
+    "Eduardo",
+    "Avalos"
+  ],
+  "author": "Eduardo Avalos",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}
