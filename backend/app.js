@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', require('./routes/user.js'));
-//app.use('/api/trackRecord', require('./routes/trackRecord.js'));
+app.use('/api/trackRecord', require('./routes/trackRecord.js'));
 
 //app.use('/api/movies', require('./routes/movie'));
 //app.use('/api/user', require('./routes/user'));
