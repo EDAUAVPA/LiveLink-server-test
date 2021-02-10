@@ -9,4 +9,4 @@ connection.connect((err, conn) => {
     console.log('Conexión a la BD correcta');
 })
 
-module.exports = connection,
+module.exports = connection;
