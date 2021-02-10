@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.json({message: 'hello world'});
+})
+
 //app.use('/api/movies', require('./routes/movie'));
 //app.use('/api/user', require('./routes/user'));
 //app.use('/api/admin', require('./routes/admin'));
