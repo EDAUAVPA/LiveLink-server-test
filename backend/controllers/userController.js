@@ -1,7 +1,26 @@
+require('dotenv').config();
 const db = require('../config/connect.js');
 const bcrypt = require('bcrypt');
 
 class UserController {
+
+    async validateUser(req, res){
+        let {email, pass} = req.body;
+
+        await db.query(`SELECT * FROM user WHERE email = '${email}'`, (err, result) => {
+            if (err) throw err;
+            if(result.length == 0){
+                return res.status(401).send('Usuario Incorrecto');
+            }
+            if(!bcrypt.compareSync(pass, result[0].password)){
+                return res.status(401).send('Password incorrecto');
+            } else {
+                const token = jwt.sign({user_id: result[0].user_id}, process.env.SECRET_KEY);
+                return res.status(200).json({token: token})
+            }
+            
+        })
+    }
 
     async getUsers(req, res){
         await db.query('SELECT * FROM user', (err, result) => {
