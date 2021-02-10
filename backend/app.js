@@ -19,14 +19,8 @@ app.get('/', (req, res) => {
 app.use('/api/user', require('./routes/user.js'));
 app.use('/api/trackRecord', require('./routes/trackRecord.js'));
 
-//app.use('/api/movies', require('./routes/movie'));
-//app.use('/api/user', require('./routes/user'));
-//app.use('/api/admin', require('./routes/admin'));
 
 app.use(express.static(path.join(__dirname, '/public')));
-
-
-
 
 
 app.listen(app.get('port'), () => {
