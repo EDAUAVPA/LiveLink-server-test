@@ -4,8 +4,8 @@ const trackController = require('../controllers/trackController.js');
 
 router.get('/', trackController.getRecords);
 
-router.post('/:user_id', trackController.saveRecord);
+router.post('/save/:user_id', trackController.saveRecord);
 
-router.get('/:user_id', trackController.getUserRecord);
+router.post('/search/:user_id', trackController.getUserRecord);
 
 module.exports = router;

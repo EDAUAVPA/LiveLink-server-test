@@ -1,6 +1,7 @@
 require('dotenv').config();
 const db = require('../config/connect.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class UserController {
 
@@ -10,10 +11,10 @@ class UserController {
         await db.query(`SELECT * FROM user WHERE email = '${email}'`, (err, result) => {
             if (err) throw err;
             if(result.length == 0){
-                return res.status(401).send('Usuario Incorrecto');
+                return res.status(201).send({message: 'Usuario Incorrecto'});
             }
-            if(!bcrypt.compareSync(pass, result[0].password)){
-                return res.status(401).send('Password incorrecto');
+            if(!bcrypt.compareSync(pass, result[0].pass)){
+                return res.status(201).json({message: 'Contraseña incorrecta'});
             } else {
                 const token = jwt.sign({user_id: result[0].user_id}, process.env.SECRET_KEY);
                 return res.status(200).json({token: token})
@@ -45,6 +46,11 @@ class UserController {
             res.json({message: 'Usuario creado exitosamente!'});
         })
 
+    }
+
+    async getUserId(req, res) {
+        let token = req.headers.token;
+        res.json(jwt.decode(token).user_id);
     }
 
 }

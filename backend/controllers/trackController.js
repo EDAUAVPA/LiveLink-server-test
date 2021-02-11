@@ -26,6 +26,7 @@ class TrackRecord {
 
     async getUserRecord(req, res){
         let user_id = req.params.user_id;
+        let {start_date, end_date} = req.body;
         await db.query(`SELECT * FROM track_record WHERE user_id = ${user_id}`, (err, result) => {
             if (err) throw err;
             if (result != 0){
