@@ -36,11 +36,11 @@ class UserController {
     }
 
     async saveUser(req, res){
-        let {full_name, email, password} = req.body;
+        let {full_name, email, pass} = req.body;
 
-        password = bcrypt.hashSync(password, 10);
+        pass = bcrypt.hashSync(pass, 10);
 
-        await db.query(`INSERT INTO user(full_name, email, pass) VALUES ('${full_name}', '${email}', '${password}')`,
+        await db.query(`INSERT INTO user(full_name, email, pass) VALUES ('${full_name}', '${email}', '${pass}')`,
         (err, result) => {
             if (err) throw err;
             res.json({message: 'Usuario creado exitosamente!'});

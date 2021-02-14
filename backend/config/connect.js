@@ -7,6 +7,7 @@ const connection = mysql.createConnection(db.db);
 connection.connect((err, conn) => {
     if (err) throw err;
     console.log('Conexión a la BD correcta');
-})
+});
+
 
 module.exports = connection;
