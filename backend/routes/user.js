@@ -11,6 +11,8 @@ router.post('/login', userController.validateUser);
 
 router.get('/info', verifyToken, userController.getUserId);
 
+router.get('/name/:user_id', verifyToken, userController.getUsername);
+
 router.post('/create', userController.saveUser);
 
 module.exports = router;

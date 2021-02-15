@@ -53,6 +53,13 @@ class UserController {
         res.json(jwt.decode(token).user_id);
     }
 
+    async getUsername(req, res) {
+        let user_id = req.params.user_id;
+        db.query(`SELECT full_name FROM user WHERE user_id = ${user_id}`, (err, result) => {
+            if (err) throw err;
+            res.json(result);
+        })
+    }
 }
 
 module.exports = new UserController();

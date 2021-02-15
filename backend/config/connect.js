@@ -2,42 +2,32 @@ require('dotenv').config();
 const mysql = require('mysql');
 const db = require('./db.js');
 
-const pool = mysql.createPool(db.db);
+connectToDB = () => {
+    const connection = mysql.createConnection(db.db);
+    connection.connect((err) => {
+        // The server is either down or restarting  
+        if (err) throw err;
+        console.log('Conexión a la BD correcta');
+    });
+    connection.on('error', (err) => {
+        // Display error message
+        systemMessage(`${err}`);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST'){
+            connectToDB();
+        } else {
+            throw err;
+        }
+    })
 
-let connection = (function () {
-    console.log('Conexión a la BD correcta');
-    
-    function _query(query, params, callback) {
-        pool.getConnection(function (err, connection) {
-            if (err) {
-                connection.release();
-                callback(null, err);
-                throw err;
-            }
+    return connection;
+}
 
-            connection.query(query, params, function (err, rows) {
-                connection.release();
-                if (!err) {
-                    callback(rows);
-                }
-                else {
-                    callback(null, err);
-                }
+systemMessage = (message) => {
+    console.log('============================');
+    console.log(message);
+    console.log('============================');
+}
 
-            });
-
-            connection.on('error', function (err) {
-                connection.release();
-                callback(null, err);
-                throw err;
-            });
-        });
-    };
-
-    return {
-        query: _query
-    };
-})();
 
 /*
 const connection = mysql.createConnection(db.db);
@@ -48,4 +38,5 @@ connection.connect((err, conn) => {
 });
 */
 
-module.exports = connection;
+
+module.exports = connectToDB();

@@ -32,10 +32,10 @@ class TrackRecord {
         await db.query(`SELECT track_record_id, origin, destination, record_date FROM track_record 
         WHERE user_id = ${user_id} AND record_date BETWEEN '${start_date}' AND '${end_date}'`, (err, result) => {
             if (err) throw err;
-            if (result != 0){
+            if (result.length > 0){
                 res.json(result);
             } else {
-                res.json({message: 'El usuario no tiene rutas guardadas'});
+                res.json({message: 'No tiene rutas que concuerden con su búsqueda'});
             }
             
         })
