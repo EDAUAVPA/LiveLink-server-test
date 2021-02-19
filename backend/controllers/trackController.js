@@ -64,7 +64,7 @@ class TrackRecord {
             if (err) throw err;
 
             connection.query(`SELECT track_record_id, origin, destination, record_date FROM track_record 
-            WHERE user_id = ${user_id} AND record_date BETWEEN '${start_date}' AND '${end_date}'`, (err, result) => {
+            WHERE user_id = ${user_id} AND record_date BETWEEN '${start_date}' AND '${end_date}' ORDER BY record_date`, (err, result) => {
                 if (err) throw err;
                 if (result.length > 0){
                     res.json(result);
